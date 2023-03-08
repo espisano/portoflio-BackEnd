@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("person")//localhost:8080/experience
@@ -36,18 +37,19 @@ public class PersonController {
         return new ResponseEntity(person, HttpStatus.OK);
     }       
     
-    
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public void save(@RequestBody Person person){
         IPersonService.savePerson(person);
     }
     
-   
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id){
         IPersonService.deletePerson(id);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public void edit(@RequestBody Person person){
         IPersonService.edit(person);
