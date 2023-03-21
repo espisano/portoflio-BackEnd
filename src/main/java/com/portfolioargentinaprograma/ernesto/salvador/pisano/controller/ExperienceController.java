@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("jobexperience")
+@RequestMapping("/jobexperience")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ExperienceController {
 
@@ -35,6 +35,14 @@ public class ExperienceController {
     public ResponseEntity<List<Experience>> list() {
         List<Experience> list = experienceService.list();
         return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Experience> getById(@PathVariable("id") int id){
+        if(!experienceService.existsById(id))
+            return new ResponseEntity(new RespMessage("no existe"), HttpStatus.NOT_FOUND);
+        Experience experience = experienceService.getOne(id).get();
+        return new ResponseEntity(experience, HttpStatus.OK);
     }
 
     @PostMapping("/create")
