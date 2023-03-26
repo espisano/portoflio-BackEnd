@@ -20,10 +20,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping("person")//localhost:8080/experience
+@RequestMapping("/person")
 @CrossOrigin(origins ="http://localhost:4200")
 public class PersonController {
-    @Autowired ImpPersonService IPersonService;
+    @Autowired 
+    ImpPersonService IPersonService;
     
     @GetMapping ("/getList")
     public ResponseEntity<List<Person>> list(){
